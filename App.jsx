@@ -10,6 +10,7 @@ const IconAgregar = (props) => <Icon {...props} name="shopping-cart-outline" />;
 const MenuSelection = () => {
   const [orders, setOrders] = useState([]);
   const [numOrders, setNumOrders] = useState(0)
+  const [cantidad, setCantidad] = useState(0)
 
   const addOrder = () => {
     setNumOrders((num) => num + 1)
@@ -29,6 +30,16 @@ const MenuSelection = () => {
   };
 
   const updateOrder = (index, category, item) => {
+    console.log("info:",item)
+    if(item === "Salchi papas"){
+      setCantidad(cantidad+60)
+    } else if(item === "Solas"){
+      setCantidad(cantidad+75)
+    }else if(item === "Con papas"){
+      setCantidad(cantidad+85)
+    }else if(item === "Con papas y agua"){
+      setCantidad(cantidad+100)
+    }
     setOrders(prevOrders => {
       const updatedOrders = [...prevOrders];
       updatedOrders[index][category] = item;
@@ -64,15 +75,17 @@ const MenuSelection = () => {
         message += `- Extras para alitas/costillas: ${order.extras.meat.join(', ')}\n`;
       }
       message += `- Aderezo: ${order.aderezo || 'No seleccionado'}\n`;
+      message += `- Cantidad: ${cantidad}\n`;
     });
     return encodeURIComponent(message);
   };
 
   const sendOrderToWhatsApp = () => {
-    const phoneNumber = '5215535595704';
+    //const phoneNumber = '5215535595704';
     const message = generateOrderMessage();
-    const url = `https://wa.me/${phoneNumber}?text=${message}`;
-    Linking.openURL(url);
+    console.log("mensaje: ", message)
+    //const url = `https://wa.me/${phoneNumber}?text=${message}`;
+    //Linking.openURL(url);
   };
 
   return (
