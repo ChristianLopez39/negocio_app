@@ -69,7 +69,7 @@ const MenuSelection = () => {
   };
 
   const sendOrderToWhatsApp = () => {
-    const phoneNumber = '5215572976926';
+    const phoneNumber = '5215535595704';
     const message = generateOrderMessage();
     const url = `https://wa.me/${phoneNumber}?text=${message}`;
     Linking.openURL(url);
@@ -101,28 +101,33 @@ const MenuSelection = () => {
                   <Button style={{ backgroundColor: 'red', padding: 5, alignSelf: 'flex-end' }} status='danger' onPress={() => removeOrder(index)}>Eliminar</Button>
                 </View>
                 <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Comida:</Text>
-                {['Alitas al carbón', 'Alitas fritas', 'Costillas al carbón'].map(food => (
+                {['Alitas al carbón', 'Alitas fritas', 'Costillas al carbón', "Salchi papas"].map(food => (
                   <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
                     <Button status={order.food === food ? 'success' : 'info'} onPress={() => updateOrder(index, 'food', food)}>{food}</Button>
                   </View>
                 ))}
-                <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Paquete:</Text>
-                {['Solas', 'Con papas', 'Con papas y agua'].map(pkg => (
-                  <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
-                    <Button status={order.package === pkg ? 'success' : 'info'} onPress={() => updateOrder(index, 'package', pkg)}>{pkg}</Button>
+                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" ? (
+                  <View>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Paquete:</Text>
+                    {['Solas', 'Con papas', 'Con papas y agua'].map(pkg => (
+                      <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
+                        <Button status={order.package === pkg ? 'success' : 'info'} onPress={() => updateOrder(index, 'package', pkg)}>{pkg}</Button>
+                      </View>
+                    ))}
                   </View>
-                ))}
+                ) : null}
+
                 <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Sabor:</Text>
-                {['BBQ', 'Buffalo', 'Mango Habanero', 'Naranja Chipotle', 'Tamarindo', 'Xtra Hot'].map(flavor => (
+                {["Sin nada", 'BBQ', 'Buffalo', 'Mango Habanero', 'Naranja Chipotle', 'Tamarindo', 'Xtra Hot'].map(flavor => (
                   <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
                     <Button status={order.flavor === flavor ? 'success' : 'info'} onPress={() => updateOrder(index, 'flavor', flavor)}>{flavor}</Button>
                   </View>
                 ))}
-                {order.package === 'Con papas' || order.package === 'Con papas y agua' ? (
+                {order.package === 'Con papas' || order.package === 'Con papas y agua' || order.food === "Salchi papas"? (
                   <View>
                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Sazonador:</Text>
                     {
-                      ['Lemon Pepper', 'Fuego', 'Cajun', 'Cheddar'].map(seasoning => (
+                      ["Sin nada", 'Lemon Pepper', 'Fuego', 'Cajun', 'Cheddar'].map(seasoning => (
                         <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
                           <Button status={order.seasoning === seasoning ? 'success' : 'info'} onPress={() => updateOrder(index, 'seasoning', seasoning)}>{seasoning}</Button>
                         </View>
@@ -130,9 +135,9 @@ const MenuSelection = () => {
                     }
                   </View>
                 ) : null}
-                {order.package === 'Con papas' || order.package === 'Con papas y agua' ? (
+                {order.package === 'Con papas' || order.package === 'Con papas y agua' || order.food === "Salchi papas"? (
                   <View>
-                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Extra papas:</Text>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Extra papas / Salchi papas:</Text>
                     {['Catsup', 'Salsa', 'Queso'].map(extra => (
                       <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
                         <Button status={order.extras.potatoes.includes(extra) ? 'success' : 'info'} onPress={() => toggleExtra(index, 'potatoes', extra)}>{extra}</Button>
@@ -140,18 +145,26 @@ const MenuSelection = () => {
                     ))}
                   </View>
                 ) : null}
-                <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Extra alitas o costillas:</Text>
+                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" ? (
+                  <View> 
+<Text style={{ fontSize: 15, fontWeight: 'bold' }}>Extra alitas o costillas:</Text>
                 {['Salsas Negras', 'Tajín'].map(extra => (
                   <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
                     <Button status={order.extras.meat.includes(extra) ? 'success' : 'info'} onPress={() => toggleExtra(index, 'meat', extra)}>{extra}</Button>
                   </View>
                 ))}
+                  </View>
+                ) : null}
+                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" ? (
+                <View>
                 <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Aderezo:</Text>
                 {['Ranch', 'Blue Cheese'].map(aderezo => (
                   <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
                     <Button status={order.aderezo === aderezo ? 'success' : 'info'} onPress={() => updateOrder(index, 'aderezo', aderezo)}>{aderezo}</Button>
                   </View>
                 ))}
+                </View>
+                ) : null}
               </View>
             ))}
             <View style={{ marginBottom: 50 }}>
