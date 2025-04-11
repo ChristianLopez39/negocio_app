@@ -20,7 +20,8 @@ const MenuSelection = () => {
       flavor: null,
       seasoning: null,
       aderezo: null,
-      extras: { potatoes: [], meat: [] },
+      pizza: null, 
+      extras: { potatoes: [], meat: [], e_pizza: []},
       price: 0,
     }]);
   };
@@ -97,8 +98,14 @@ const MenuSelection = () => {
       if (order.package) {
         message += `- Paquete: ${order.package}\n`;
       }
+      if (order.pizza){
+        message +=`- Sabor pizza: ${order.pizza}\n`;
+      }
       if (order.flavor){
         message += `- Sabor: ${order.flavor?.length ? order.flavor.join(' y ') : 'No seleccionado'}\n`;
+      }
+      if (order.extras.e_pizza.length > 0) {
+        message += `- Extras para pizza: ${order.extras.e_pizza.join(', ')}\n`;
       }
       if (order.extras.meat.length > 0) {
         message += `- Extras para alitas/costillas: ${order.extras.meat.join(', ')}\n`;
@@ -153,12 +160,12 @@ const MenuSelection = () => {
                   <Button style={{ backgroundColor: 'red', padding: 5, alignSelf: 'flex-end' }} status='danger' onPress={() => removeOrder(index)}>Eliminar</Button>
                 </View>
                 <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Comida:</Text>
-                {['Alitas al carbón', 'Alitas fritas', 'Costillas al carbón', "Salchi papas", "Papas solas", "Alitas mixtas"].map(food => (
+                {['Alitas al carbón', 'Alitas fritas',"Alitas mixtas", 'Pizza', "Salchi papas", "Papas solas",].map(food => (
                   <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
                     <Button status={order.food === food ? 'success' : 'info'} onPress={() => updateOrder(index, 'food', food)}>{food}</Button>
                   </View>
                 ))}
-                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" || order.food === "Alitas mixtas" ? (
+                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" || order.food === "Alitas mixtas" || order.food === "Pizza" ? (
                   <View>
                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Paquete:</Text>
                     {['Solas', 'Con papas', 'Con papas y agua'].map(pkg => (
@@ -168,7 +175,17 @@ const MenuSelection = () => {
                     ))}
                   </View>
                 ) : null}
-                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" || order.food === "Alitas mixtas" || order.food === "Salchi papas" ? (
+                {order.food === "Pizza" ? (
+                  <View>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Paquete:</Text>
+                    {['Pepperoni', 'Hawaiana'].map(tipopizza => (
+                      <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
+                        <Button status={order.pizza === tipopizza ? 'success' : 'info'} onPress={() => updateOrder(index, 'pizza', tipopizza)}>{tipopizza}</Button>
+                      </View>
+                    ))}
+                  </View>
+                ) : null}
+                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" || order.food === "Alitas mixtas" || order.food === "Salchi papas" || order.food === "Pizza" ? (
                   <View>
                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Sabor:</Text>
                     {["Sin nada", 'BBQ', 'Buffalo', 'Mango Habanero', 'Naranja Chipotle', 'Tamarindo', 'Xtra Hot'].map(flavor => (
@@ -183,7 +200,7 @@ const MenuSelection = () => {
                     ))}
                   </View>
                 ) : null}
-                {order.package === 'Con papas' || order.package === 'Con papas y agua' || order.food === "Salchi papas" || order.food === "Papas solas" ? (
+             {order.package === 'Con papas' || order.package === 'Con papas y agua' || order.food === "Salchi papas" || order.food === "Papas solas" ? (
                   <View>
                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Sazonador:</Text>
                     {
@@ -201,6 +218,16 @@ const MenuSelection = () => {
                     {['Catsup', 'Queso', 'Salsa Valentina', 'Salsa botanera'].map(extra => (
                       <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
                         <Button status={order.extras.potatoes.includes(extra) ? 'success' : 'info'} onPress={() => toggleExtra(index, 'potatoes', extra)}>{extra}</Button>
+                      </View>
+                    ))}
+                  </View>
+                ) : null}
+                {order.food === "Pizza" ? (
+                  <View>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Extra pizza:</Text>
+                    {['Catsup', 'Salsa Valentina', 'Salsa botanera'].map(extra => (
+                      <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
+                        <Button status={order.extras.e_pizza.includes(extra) ? 'success' : 'info'} onPress={() => toggleExtra(index, 'e_pizza', extra)}>{extra}</Button>
                       </View>
                     ))}
                   </View>
