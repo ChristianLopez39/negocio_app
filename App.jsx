@@ -183,7 +183,7 @@ const MenuSelection = () => {
                 ) : null}
                 {order.food === "Pizza" ? (
                   <View>
-                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Paquete:</Text>
+                    <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Sabor:</Text>
                     {['Pepperoni', 'Hawaiana'].map(tipopizza => (
                       <View style={{ marginHorizontal: 20, marginVertical: 10 }}>
                         <Button style={{backgroundColor:order.pizza === tipopizza ? "#C70039" : "#633974"}} onPress={() => updateOrder(index, 'pizza', tipopizza)}>{tipopizza}</Button>
