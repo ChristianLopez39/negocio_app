@@ -194,7 +194,7 @@ const MenuSelection = () => {
                 {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" || order.food === "Alitas mixtas" || order.food === "Salchi papas" || order.food === "Salchi pulpos" || order.food === "Pizza" ? (
                   <View>
                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Sabor:</Text>
-                    {["Sin nada", 'BBQ', 'Buffalo', 'Mango Habanero', 'Naranja Chipotle', 'Tamarindo', 'Xtra Hot'].map(flavor => (
+                    {["Sin nada", 'BBQ', 'Buffalo', 'Mango Habanero', 'Tamarindo', 'Xtra Hot'].map(flavor => (
                       <View key={flavor} style={{ marginHorizontal: 20, marginVertical: 10 }}>
                         <Button
                           style={{backgroundColor:order.flavor?.includes(flavor) ? "#C70039" : "#633974"}}
