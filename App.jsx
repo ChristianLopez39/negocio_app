@@ -113,7 +113,7 @@ const MenuSelection = () => {
         message += `- Extras para salchicha: ${order.extras.salchicha.join(', ')}\n`;
       }
       if (order.extras.meat.length > 0) {
-        message += `- Extras para alitas/costillas: ${order.extras.meat.join(', ')}\n`;
+        message += `- Extras para alitas: ${order.extras.meat.join(', ')}\n`;
       }
       if (order.seasoning) {
         message += `- Sazonador de papas: ${order.seasoning || 'No seleccionado'}\n`;
@@ -171,7 +171,7 @@ const MenuSelection = () => {
                     <Button style={{backgroundColor: order.food === food ? "#C70039" : "#633974"}} onPress={() => updateOrder(index, 'food', food)}>{food}</Button>
                   </View>
                 ))}
-                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" || order.food === "Alitas mixtas" || order.food === "Pizza" ? (
+                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Alitas mixtas" || order.food === "Pizza" ? (
                   <View>
                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Paquete:</Text>
                     {['Solas', 'Con papas', 'Con papas y agua'].map(pkg => (
@@ -191,7 +191,7 @@ const MenuSelection = () => {
                     ))}
                   </View>
                 ) : null}
-                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" || order.food === "Alitas mixtas" || order.food === "Salchi papas" || order.food === "Salchi pulpos" || order.food === "Pizza" ? (
+                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Alitas mixtas" || order.food === "Salchi papas" || order.food === "Salchi pulpos" || order.food === "Pizza" ? (
                   <View>
                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Sabor:</Text>
                     {["Sin nada", 'BBQ', 'Buffalo', 'Mango Habanero', 'Tamarindo', 'Xtra Hot'].map(flavor => (
@@ -248,7 +248,7 @@ const MenuSelection = () => {
                     ))}
                   </View>
                 ) : null}
-                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Costillas al carbón" || order.food === "Alitas mixtas" ? (
+                {order.food === 'Alitas al carbón' || order.food === "Alitas fritas" || order.food === "Alitas mixtas" ? (
                   <View>
                     <Text style={{ fontSize: 15, fontWeight: 'bold' }}>Extra alitas:</Text>
                     {['Salsas Negras', 'Tajín'].map(extra => (
