@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Image, ScrollView, Linking } from 'react-native';
 import * as eva from '@eva-design/eva';
-import { ApplicationProvider, Button, Text, Icon, IconRegistry, Modal } from '@ui-kitten/components';
+import { ApplicationProvider, Button, Text, Icon, IconRegistry, Modal, TabView, Tab, TabBar } from '@ui-kitten/components';
 import { EvaIconsPack } from '@ui-kitten/eva-icons';
 
 const IconEnviar = (props) => <Icon {...props} name="paper-plane-outline" />;
@@ -11,6 +11,7 @@ const MenuSelection = () => {
   const [orders, setOrders] = useState([]);
   const [numOrders, setNumOrders] = useState(0)
   const [cantidad, setCantidad] = useState(0)
+  const [selectedIndex, setSelectedIndex] = useState(0);
 
   const addOrder = () => {
     setNumOrders((num) => num + 1)
@@ -159,8 +160,20 @@ const MenuSelection = () => {
                 {'Agregar orden ' + numOrders}
               </Button>
             </View>
+            {orders.length > 0 && (
+  <TabView
+    selectedIndex={selectedIndex}
+    onSelect={index => setSelectedIndex(index)}
+    style={{ marginBottom: 30}}
+    tabBarStyle={{backgroundColor:'#aa7dd2'}}
+    indicatorStyle={{
+      backgroundColor: "black", 
+      height: 4, 
+    }}
+  >
             {orders.map((order, index) => (
-              <View key={index} style={{ backgroundColor: '#aa7dd2', marginBottom: 30, borderWidth: 1, padding: 10, borderRadius: 10, paddingHorizontal: 20 }}>
+              <Tab  title={`Orden ${index + 1}`} key={index}>
+              <View key={index} style={{ backgroundColor: '#aa7dd2', marginBottom: 0, borderWidth: 1, padding: 10, borderRadius: 10, paddingHorizontal: 20, marginTop: 20 }}>
                 <View style={{ flexDirection: 'row', justifyContent: 'space-between', marginBottom: 20 }}>
                   <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 20 }}>Orden {index + 1}:</Text>
                   <Button style={{ backgroundColor: 'red', padding: 5, alignSelf: 'flex-end' }} status='danger' onPress={() => removeOrder(index)}>Eliminar</Button>
@@ -269,7 +282,10 @@ const MenuSelection = () => {
                   </View>
                 ) : null}
               </View>
+              </Tab>
             ))}
+            </TabView>
+)}
             <View style={{ marginBottom: 50 }}>
               <Button
                 disabled={numOrders === 0 ? true : false}
